@@ -1,15 +1,948 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuqianqian007.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-12-10T12:50:23.958Z</updated>
+    <title>LQ</title>
+    <updated>2020-12-10T18:37:11.736Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuqianqian007.github.io"/>
     <link rel="self" href="https://liuqianqian007.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>每天学习一点点</subtitle>
     <logo>https://liuqianqian007.github.io/images/avatar.png</logo>
     <icon>https://liuqianqian007.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, LQ</rights>
+    <entry>
+        <title type="html"><![CDATA[C语言]]></title>
+        <id>https://liuqianqian007.github.io/post/c-yu-yan/</id>
+        <link href="https://liuqianqian007.github.io/post/c-yu-yan/">
+        </link>
+        <updated>2020-12-10T12:54:05.000Z</updated>
+        <summary type="html"><![CDATA[<h3 id="第一章-输入输出">第一章 输入输出</h3>
+<p><code>printf()</code></p>
+<p>原型:  <code>int printf(const char* format, ...)</code></p>
+<p><code>scanf()</code></p>
+<p>原型：<code>int scanf(const char* format, ...)</code></p>
+<p>格式化字符串：%g，输出实数，自动选择%f或%e格式，且不输出无意义的0</p>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//输出包含空格的字符串的总字符数
+int main() {
+    char str[100] = {0};
+    //[^\n]为正则表达式，表示除了\n外都读入
+    while((scanf(&quot;%[^\n]s&quot;, str)) != EOF){
+        getchar();
+        printf(&quot; has %d chars\n&quot;, printf(&quot;%s&quot;, str)); //hello world: 11
+    }
+    return 0;
+}
+
+</code></pre>
+]]></summary>
+        <content type="html"><![CDATA[<h3 id="第一章-输入输出">第一章 输入输出</h3>
+<p><code>printf()</code></p>
+<p>原型:  <code>int printf(const char* format, ...)</code></p>
+<p><code>scanf()</code></p>
+<p>原型：<code>int scanf(const char* format, ...)</code></p>
+<p>格式化字符串：%g，输出实数，自动选择%f或%e格式，且不输出无意义的0</p>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//输出包含空格的字符串的总字符数
+int main() {
+    char str[100] = {0};
+    //[^\n]为正则表达式，表示除了\n外都读入
+    while((scanf(&quot;%[^\n]s&quot;, str)) != EOF){
+        getchar();
+        printf(&quot; has %d chars\n&quot;, printf(&quot;%s&quot;, str)); //hello world: 11
+    }
+    return 0;
+}
+
+</code></pre>
+<!--more-->
+<h5 id="重定向输出">重定向输出</h5>
+<p><code>./a.out &gt; output</code>  标准输出重定向到output文件，标准错误输出到屏幕</p>
+<p><code>./a.out 2&gt; output</code> 标准错误重定向到output文件，标准输出输出到屏幕</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define swap(a,b) {\
+    __typeof(a) __temp = a;\
+    a = b; b = __temp;\
+}
+
+int main() {
+    //当n的二进制第一位为1，则加上()，第二位为1.加上[]，第三位为1，加上{}
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;%d\n&quot;, n);
+    char str[1000] = {0}, buffer[1000] = {0}, *p = str, *q = buffer;
+
+    //读入IP地址
+    sprintf(str,&quot;%d.%d.%d.%d&quot;, 192, 168, 1, 2);
+    printf(&quot;%s\n&quot;, str);
+    if (n &amp; 1) {
+        sprintf(q,&quot;(%s)&quot;, p);
+        swap(p, q);
+    }
+    if (n &amp; 2) {
+        sprintf(q, &quot;[%s]&quot;, p);
+        swap(p, q);
+    }
+    if (n &amp; 4) {
+        sprintf(q, &quot;{%s}&quot;, p);
+        swap(p, q);
+    }
+    printf(&quot;%s\n&quot;, p); //n = 5: {(192.168.1.2)}
+    FILE* fout = fopen(&quot;output&quot;, &quot;w&quot;);
+    //输出到标准输出
+    fprintf(stdout, &quot;stdout = %s\n&quot;, p);
+    //输出到标准错误
+    fprintf(stderr, &quot;stderr = %s\n&quot;, p);
+    return 0;
+}
+</code></pre>
+<h3 id="第二章-数学运算">第二章 数学运算</h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 7, b = 3;
+    a += 7;
+    int *p = &amp;a;
+    (*p)--;
+    printf(&quot;a = %d, b = %d\n&quot;, a, b); //a = 13, b = 3
+    
+    /*
+    int temp = a;
+    a = b;
+    b = temp;
+    */
+    
+    //等价于交换，异或^是自己的逆运算
+    a ^= b;
+    b ^= a;
+    a ^= b;
+    printf(&quot;swap : a = %d, b = %d\n&quot;, a, b);//a = 3, b = 13
+    return 0;
+}
+</code></pre>
+<h3 id="第三章-流程控制">第三章 流程控制</h3>
+<h5 id="cpu分支预测">CPU分支预测：</h5>
+<p><code>#define likely(x) __builtin_expect(!!(x),1)</code></p>
+<p>x经常成立，CPU加载if条件下的语句</p>
+<p><code>#define unlikely(x) __builtin_expect(!!(x),0)</code></p>
+<p>x经常不成立，CPU加载之后的语句</p>
+<h5 id="短路原则-与-长路原则">&amp;&amp; 短路原则 与 || 长路原则</h5>
+<p><code>i &amp;&amp; print()</code>  最后一个元素后不输出空格</p>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//判断是否为回文数
+bool rev_num(int n, int base) {
+    //if (n &lt; 0) return false;
+    //CPU分支预测，n &lt; 0不经常成立
+    if (__builtin_expect(!!(n &lt; 0), 0))  return false;
+    int copy = n;
+    int res = 0;
+    while(copy) {
+        res = res * base + copy % base;
+        copy /= base;
+    }
+    return res == n;
+}
+
+int main() {
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;%s\n&quot;, rev_num(n, 10) ? &quot;YES&quot; : &quot;NO&quot;);
+    return 0;
+}
+
+</code></pre>
+<h3 id="第四章-函数">第四章 函数</h3>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//求n的阶乘
+int factorial(int n) {
+    if (n == 1)  return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    int n;
+    scanf(&quot;%d&quot;, &amp;n);
+    printf(&quot;%d\n&quot;, factorial(n));
+}
+
+</code></pre>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+//已知T285 = T165 = H143 = 40755;
+//求下一个同时为三角形数、五边形数和六边形数的数
+typedef long long ll; //int溢出
+
+//三角形数
+ll Triangle(ll n) {
+    return n * (n + 1) / 2;
+}
+//五边形数
+ll Pentagonal(ll n) {
+    return n * (3 * n - 1) / 2;
+}
+//六边形数
+ll Hexagonal(ll n) {
+    return n * (2 * n - 1);
+}    
+//二分查找
+ll binary_search(ll (*arr)(ll), ll n, ll x) {
+    ll head = 1, tail = n, mid;
+    while (head &lt;= tail) {
+        mid = (head + tail) &gt;&gt; 1;
+        if (arr(mid) == x) return mid;
+        if (arr(mid) &lt; x) head = mid +1;
+        else tail = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    ll n = 143;
+    while (1) {
+        n += 1;
+        ll temp = Hexagonal(n);
+        //减少代码缩进
+        if (binary_search(Pentagonal, temp, temp) == -1) continue; 
+        //是六边形数一定是三角形数
+        //if (binary_search(Triangle, temp, temp) == -1) continue; 
+        printf(&quot;%lld\n&quot;, temp);//1533776805
+        break;
+    }
+    return 0;
+}
+
+</code></pre>
+<pre><code class="language-c">//欧几里得算法（辗转相除法）求最大公约数
+int gcd(int a, int b) {
+    if (!b) return a;
+    return gcd(b, a % b);
+}
+</code></pre>
+<p><a href="https://blog.csdn.net/lincifer/article/details/49391175">扩展欧几里得算法证明</a></p>
+<p><a href="https://www.cnblogs.com/woaiheniunai/p/6377539.html">贝祖定理</a></p>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//扩展欧几里得算法
+int ex_gcd(int a, int b, int *x, int *y) {
+    if (!b) {
+        *x = 1, *y = 0;
+        return a;
+    }
+    int xx, yy, ret = ex_gcd(b, a % b, &amp;xx, &amp;yy);
+    *x = yy;
+    *y = xx - a / b * yy;
+    return ret;
+}
+
+int main() {
+    int a, b, x, y;
+    while (scanf(&quot;%d%d&quot;, &amp;a, &amp;b) != EOF) {
+        printf(&quot;ex_gcd(%d, %d) = %d\n&quot;, a, b, ex_gcd(a, b, &amp;x, &amp;y));
+        printf(&quot;%d *%d + %d * %d = %d\n&quot;, a, x, b, y, a * x + b * y);
+    }
+    return 0;
+}
+
+</code></pre>
+<p><a href="https://www.cnblogs.com/clover-toeic/p/3736748.html">变参宏定义与使用</a></p>
+<pre><code class="language-c">#include &lt;stdarg.h&gt;
+
+int VarArgFunc(int dwFixedArg, ...){ //以固定参数的地址为起点依次确定各变参的内存起始地址
+
+    va_list pArgs = NULL;  //定义va_list类型的指针pArgs，用于存储参数地址
+
+    va_start(pArgs, dwFixedArg); //初始化pArgs指针，使其指向第一个可变参数。该宏第二个参数是变参列表的前一个参数，即最后一个固定参数
+
+    int dwVarArg = va_arg(pArgs, int); //该宏返回变参列表中的当前变参值并使pArgs指向列表中的下个变参。该宏第二个参数是要返回的当前变参类型
+
+    //若函数有多个可变参数，则依次调用va_arg宏获取各个变参
+
+    va_end(pArgs);  //将指针pArgs置为无效，结束变参的获取
+
+    /* Code Block using variable arguments */
+
+}
+</code></pre>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;stdarg.h&gt;
+#include&lt;inttypes.h&gt;
+
+//用可变参数函数实现简版printf函数
+
+//先翻转一遍，因为output函数输出时翻转了
+int rev_num(int n, int *temp) {
+    int digit = 0;
+    *temp = 0;
+    do {
+        *temp = *temp * 10 + n % 10;
+        n /= 10;
+        ++digit;
+    }while(n);
+    return digit;
+}
+
+int output_num(int n, int digit) {
+    int cnt = 0;
+    while(digit--) {
+        putchar(n % 10 + 48), ++cnt;//'0'的ASCII码为48
+        n /= 10;
+    }
+    return cnt;
+}
+
+int my_printf(const char *frm, ...) {
+    int cnt = 0;
+    //定义指针，用于存储可变参数地址
+    va_list arg;
+    //初始化指针，使其指向第一个可变参数，该宏第二个参数是变参列表的前一个参数，即最后一个固定参数
+    va_start(arg, frm); 
+    #define PUTC(a) putchar(a), ++cnt
+    //字符串结尾'\0'等于十进制0，即循环到字符串结尾结束
+    for (int i = 0; frm[i]; i++) { 
+        switch (frm[i]) {
+            case '%': {
+                switch (frm[++i]) {
+                    case '%': PUTC(frm[i]);break;
+                    case 'd': {
+                        //该宏返回变参列表当前参数并使指针指向下一变参，其第二个参数是变参类型
+                        int xx = va_arg(arg, int);
+                        //若用int类型，INT32_MIN取绝对值后溢出（INT32_MIN的绝对值比INT32_MAX的绝对值大1）
+                        uint32_t x;
+                        if (xx &lt; 0) PUTC('-'),x = -xx;
+                        else x = xx;
+                        int temp1, temp2;
+                        //2^31-1是10位数，分成两部分输出，解决翻转后溢出问题
+                        int x1 = x /100000, x2 = x % 100000;
+                        int digit1 = rev_num(x1, &amp;temp1);
+                        int digit2 = rev_num(x2, &amp;temp2);
+                        if (x1) digit2 = 5;
+                        else digit1 = 0;
+                        cnt += output_num(temp1, digit1);
+                        cnt += output_num(temp2, digit2);
+                    } break;
+                    case 's': {
+                        const char* str = va_arg(arg, const char *);
+                        for (int i = 0; str[i]; i++) {
+                            PUTC(str[i]);
+                        }
+                    } break;
+                }
+            } break;
+            default: PUTC(frm[i]); break;
+        }
+    }
+    #undef PUTC
+    va_end(arg);//结束变参获取
+    return cnt;
+}
+
+int main() {
+    //int n;
+    //while (~scanf(&quot;%d&quot;, &amp;n)) {
+        //printf(&quot; has %d digitals\n&quot;, printf(&quot;%d&quot;, n));
+        //my_printf(&quot; has %d digitals\n&quot;, my_printf(&quot;%d&quot;, n));
+    //}
+    
+    int a = 123;
+    printf(&quot;hello world\n&quot;);
+    my_printf(&quot;hello world\n&quot;);
+    printf(&quot;int(a) = %d\n&quot;, a);
+    my_printf(&quot;int(a) = %d\n&quot;, a);
+    printf(&quot;int(a) = %d\n&quot;, 0);
+    my_printf(&quot;int(a) = %d\n&quot;, 0);
+    printf(&quot;int(a) = %d\n&quot;, 1000);
+    my_printf(&quot;int(a) = %d\n&quot;, 1000);
+    printf(&quot;int(a) = %d\n&quot;, -123);
+    my_printf(&quot;int(a) = %d\n&quot;, -123);
+    printf(&quot;int(a) = %d\n&quot;, INT32_MAX);
+    my_printf(&quot;int(a) = %d\n&quot;, INT32_MAX);
+    printf(&quot;int(a) = %d\n&quot;, INT32_MIN);
+    my_printf(&quot;int(a) = %d\n&quot;, INT32_MIN);
+
+    char str[100] = &quot;I love China&quot;;
+    printf(&quot;int(a) = %s\n&quot;, str);
+    my_printf(&quot;int(a) = %s\n&quot;, str);
+    return 0;
+}
+</code></pre>
+<h3 id="第五章-数组和预处理命令">第五章 数组和预处理命令</h3>
+<h4 id="数组">数组</h4>
+<p>二维数组的传参形式：</p>
+<ol>
+<li>
+<p><code>int (*num)[100]</code></p>
+<p>num为指针，指向100个int元素的一维数组</p>
+<p>去掉括号<code>int *num[100]</code> 表示num为大小100的数组，元素为int类型的指针</p>
+</li>
+<li>
+<p><code>int num[][100]</code></p>
+</li>
+</ol>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+#define max_n 100
+
+//地址是按字节byte计数的
+//传二维数组时，参数不能定义为int **num，传三维数组时，不能定义为int ***num，而要定义为以下形式
+void func(int (*num)[3][2]) {
+    printf(&quot;num = %p, num + 1 = %p\n&quot;, num, num + 1);//相差6 * 4
+}
+
+int main() {
+    int arr[100][3][2];//开辟的地址在栈区,系统栈为8MB
+    printf(&quot;sizeof(arr) = %lu\n&quot;, sizeof(arr));//2400 = 600 * 4
+    printf(&quot;&amp;arr = %p, &amp;arr[0] = %p\n&quot;, arr, &amp;arr[0]);//相等
+    printf(&quot;arr + 1 = %p, arr + 2 = %p\n&quot;, arr + 1, arr + 2);//相差6 * 4
+    char *p = (char *)arr;
+    printf(&quot;p + 1 = %p, p + 2 = %p\n&quot;,p + 1, p + 2);//相差1
+    func(arr);
+    printf(&quot;arr = %p, arr + 1 =%p\n&quot;, arr, arr + 1);//相差6 * 4
+    int **q;
+    printf(&quot;q = %p, q + 1 = %p\n&quot;, q, q + 1);//相差8
+    return 0;
+}
+/*
+sizeof(arr) = 2400
+&amp;arr = 0x7ffdc5aec230, &amp;arr[0] = 0x7ffdc5aec230
+arr + 1 = 0x7ffdc5aec248, arr + 2 = 0x7ffdc5aec260
+p + 1 = 0x7ffdc5aec231, p + 2 = 0x7ffdc5aec232
+num = 0x7ffdc5aec230, num + 1 = 0x7ffdc5aec248
+arr = 0x7ffdc5aec230, arr + 1 =0x7ffdc5aec248
+q = 0x20225, q + 1 = 0x2022d
+*/
+</code></pre>
+<h5 id="二分查找的两种实现">二分查找的两种实现</h5>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+//gcc 编译时要加 -lm，因为math.h依赖于libm.so，默认情况省略了 -lc（查找libc.so）
+#include&lt;math.h&gt;
+
+//二分查找的循环实现——求sqrt(n)
+double f(double x) {
+    return x * x;
+}
+
+double binary_search(double (*arr)(double), double x) {
+    double head = 0, tail = x, mid;
+    //小数开根号的查找上界是1.0
+    if (x &lt; 1.0) tail = 1.0;
+    #define EPSL 1e-7
+    while (tail - head &gt; EPSL) {
+        mid = (head + tail) / 2.0;
+        if (arr(mid) &lt; x) head = mid;
+        else tail = mid;
+    }
+    #undef EPSL
+    return head;
+}
+
+int main() {
+    double x;
+    while (~scanf(&quot;%lf&quot;, &amp;x)){
+        double ans = binary_search(f, x);
+        printf(&quot;sqrt(%g) = %g\n&quot;, x, sqrt(x));
+        printf(&quot;my_sqrt(%g) = %g\n&quot;, x, ans);
+    }
+    return 0;
+}
+</code></pre>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//二分查找的递归实现
+
+int binary_search(int *arr, int l, int r, int x) {
+    if (l &gt; r) return -1;
+    int mid = (l + r) &gt;&gt; 1;
+    if (arr[mid] == x) return mid;
+    if (arr[mid] &lt; x) l = mid + 1;
+    else r = mid - 1;
+    return binary_search(arr, l, r, x);
+}
+
+int main() {
+    int arr[100], n;
+    scanf(&quot;%d&quot;, &amp;n);
+    for (int i = 0; i &lt; n; i++) scanf(&quot;%d&quot;, arr + i);
+    int x;
+    while (~scanf(&quot;%d&quot;, &amp;x)) {
+        int ans = binary_search(arr, 0, n - 1, x);
+        printf(&quot;find %d in arr[%d]\n&quot;, x, ans);
+    }
+    return 0;
+}
+</code></pre>
+<p><a href="https://blog.csdn.net/qq_36330643/article/details/78003952">牛顿法解方程原理</a></p>
+<pre><code class="language-c">//牛顿法——求sqrt(n)
+double F(double x, double n) {
+    return x * x - n;
+}
+
+double f(double x) {
+    return 2 * x;
+}
+
+double NewTon (double(*F) (double, double), double (*f) (double), double n) {
+    double x = n / 2.0;
+    #define EPSL 1e-7
+    while (fabs(F(x, n)) &gt; EPSL) {
+        x -= F(x, n) / f(x);
+    }
+    #undef EPSL
+    return x;
+}
+
+double my_sqrt(double n) {
+    return NewTon(F, f, n);
+}
+
+int main() {
+    double n;
+    while(~scanf(&quot;%lf&quot;, &amp;n)) {
+        printf(&quot;sqrt(%g) = %g\n&quot;, n, sqrt(n));
+        printf(&quot;my_sqrt(%g) = %g\n&quot;, n, NewTon(F, f, n));
+
+    }
+    return 0;
+}
+</code></pre>
+<h5 id="求素数">求素数</h5>
+<ol>
+<li>素数筛</li>
+</ol>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+#define max_n 100
+//素数筛实现
+
+int prime[max_n + 5] = {0};//多开5位以防不小心溢出，数组定义在函数外时默认初始化为0值
+void init() {
+    for (int i = 2; i &lt;= max_n; i++) {
+        if (prime[i]) continue;//减少缩进
+        prime[++prime[0]] = i;//记录素数，prime[0]为素数个数
+        //j 初始化为i * i而不是i * 2，是为了减少重复标记
+        for (int j = i * i; j &lt;= max_n; j += i) {
+            prime[j] = 1;
+        }
+    }
+    return;
+}
+
+int main() {
+    init();
+    for (int i = 1; i &lt;= prime[0]; i++) {
+        printf(&quot;%d\n&quot;, prime[i]);
+    }
+    return 0;
+}
+</code></pre>
+<ol start="2">
+<li>线性筛</li>
+</ol>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//线性筛——求第10001个素数
+//P = M * N，M是合数，N是小于M的最小质因子的质数
+
+//第n个质数的大小不会超过20 * n
+#define max_n 200000
+
+int prime[max_n + 5];
+
+void init() {
+    for (int i = 2; i &lt;= max_n; i++) {
+        //在原数组的前面记录质数，覆盖一部分已经遍历的数
+        //没有被标记为1则为质数
+        if (!prime[i]) prime[++prime[0]] = i;
+        //j遍历已确定的质数
+        for (int j = 1; j &lt;= prime[0]; j++) {
+            //超过上限
+            if ( i * prime[j] &gt; max_n ) break;
+            //标记合数P = N * M 
+            prime[prime[j] * i] = 1;
+            //M中的最小质因子等于N了，跳出循环
+            if (i % prime[j] == 0) break;
+        }
+    }
+    return;
+}
+
+int main() {
+    init();
+    printf(&quot;%d\n&quot;, prime[10001]);
+    return 0;
+}
+</code></pre>
+<h4 id="宏">宏</h4>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+//定义一个输出无bug的宏定义MAX
+
+//({})等价于表达式，返回{}内最后一个语句的结果
+#define MAX(a, b) ({\
+    __typeof(a) _a = (a);\
+    __typeof(b) _b = (b);\
+    _a &gt; _b ? _a : _b;\
+})
+
+//#func将func字符串化,即给func加上&quot; &quot;
+#define P(func) {\
+    printf(&quot;%s = %d\n&quot;, #func, func);\
+}
+
+
+int main() {
+    int a = 7;
+    P(MAX(2, 3));
+    P(MAX(2, 3));
+    P(MAX(2, MAX(2, 3)));
+    P(MAX(2, 3 &gt; 4 ? 3 : 4));
+    P(MAX(a++, 6));
+    P(a);
+    return 0;
+}
+
+</code></pre>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+
+//实现打印LOG的函数，输出所在函数及行号等信息
+//log为变参宏
+#define DEBUG
+#ifdef DEBUG
+#define log(frm, args...){\
+    printf(&quot;[%s : %s : %d] &quot;, __FILE__, __func__, __LINE__);\
+    printf(frm, ##args);\
+    printf(&quot;\n&quot;);\
+}
+#else
+#define log(frm, args...)
+#endif
+
+//##args表示连接
+#define contact(a, b) a##b
+
+int main() {
+    int a = 123;
+    int b = 234;
+    int abcdef = 0, abc, def;
+    log(&quot;%d%d&quot;, b, a);
+    log(&quot;hello world&quot;);
+    contact(abc, def) = 666;
+    log(&quot;%d&quot;, abcdef);
+    return 0;
+}
+</code></pre>
+<h4 id="字符串">字符串</h4>
+<h5 id="初始化">初始化</h5>
+<ol>
+<li>
+<p><code>char str[] = &quot;hello world&quot;</code></p>
+</li>
+<li>
+<p><code>char str[5] = {'h', 'e', 'l', 'l', 'o'}</code></p>
+</li>
+</ol>
+<h3 id="第六章-复杂结构与指针">第六章 复杂结构与指针</h3>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+//实现IP地址转整数功能
+union IP {
+    struct {
+        unsigned char a;
+        unsigned char b;
+        unsigned char c;
+        unsigned char d;
+    } ip;
+    unsigned int num;
+};
+//判断电脑是否为小端机
+int is_little() {
+    int num = 1;
+    return ((char *)(&amp;num))[0];
+}
+
+int main() {
+    printf(&quot;%d\n&quot;, is_little());
+    union IP p;
+    char str[100] = {0};
+    int arr[4];
+    while (~scanf(&quot;%s&quot;, str)) {
+        sscanf(str, &quot;%d.%d.%d.%d&quot;, arr, arr + 1, arr + 2, arr + 3);
+        //小端机，整数存储倒过来
+        p.ip.d = arr[0];
+        p.ip.c = arr[1];
+        p.ip.b = arr[2];
+        p.ip.a = arr[3];
+        printf(&quot;%u\n&quot;, p.num);
+    }
+    return 0;
+}
+</code></pre>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+
+//强转为char类型，因为char为一字节
+/*
+#define offset(T, a) ({\
+    T temp;\
+    (char *)(&amp;temp.a) - (char *)(&amp;temp);\
+})
+*/
+//计算结构体成员偏移量
+#define offset(T, a) (long)(&amp;(((T*)(NULL))-&gt;a))
+struct Data1 {
+    char a;
+    double b;
+    char c[2];
+    char d;
+};
+struct Data2 {
+    char a;
+    double b;
+    char c[2];
+    char d;
+    int e;
+};
+
+//define为简单字符替换
+#define ppchar char*
+typedef char* pchar;
+
+void output(int argc, char* argv[], char** env) {
+    printf(&quot;argc = %d\n&quot;, argc);
+    for (int i = 0; i &lt; argc; i++) {
+        printf(&quot;argv[%d] = %s\n&quot;, i,  argv[i]);
+    }
+    for (int i = 0; env[i]; i++) {
+        //printf(&quot;env[%d] = %s\n&quot;, i, env[i]);
+        //指纹密码，判断用户是否匹配
+        if (!strncmp(env[i], &quot;USER=&quot;, 5)) {
+            if (!strcmp(env[i] + 5, &quot;liuq&quot;)) {
+                printf(&quot;welcome!\n&quot;);
+            } else {
+                printf(&quot;you are not the user!\n&quot;);
+                exit(0);
+            }
+        }
+    }
+    return;
+}
+
+
+int main(int argc, char* argv[], char** env) {
+    //小端机，存储顺序为64/63/62/61/0
+    //十六进制数转为字符分别对应dcba，其中0为字符串结尾标志
+    int num = 0x061626364;
+    printf(&quot;%s\n&quot;, (char *)(&amp;num));//dcba
+
+    printf(&quot;%ld\n&quot;, offset(struct Data1, a));//0
+    printf(&quot;%ld\n&quot;, offset(struct Data1, b));//8
+    printf(&quot;%ld\n&quot;, offset(struct Data1, c));//16
+    printf(&quot;%ld\n&quot;, offset(struct Data1, d));//18
+    printf(&quot;%ld\n&quot;, sizeof(struct Data1));//24
+    
+    printf(&quot;%ld\n&quot;, offset(struct Data1, a));//0
+    printf(&quot;%ld\n&quot;, offset(struct Data1, b));//8
+    printf(&quot;%ld\n&quot;, offset(struct Data1, c));//16
+    printf(&quot;%ld\n&quot;, offset(struct Data1, d));//18
+    printf(&quot;%ld\n&quot;, offset(struct Data1, e));//20
+    printf(&quot;%ld\n&quot;, sizeof(struct Data1));//24
+    
+
+
+    ppchar p1, p2;
+    pchar p3, p4;
+    printf(&quot;p1 : %lu, p2 : %lu\n&quot;, sizeof(p1), sizeof(p2));//8 1
+    printf(&quot;p3 : %lu, p4 : %lu\n&quot;, sizeof(p3), sizeof(p4));//8 8
+
+    output(argc, argv, env);//argc = 1   argv[0] = ./a.out   welcome!
+
+    return 0;
+}
+</code></pre>
+<h3 id="第七章-工程项目开发自制googletest测试框架">第七章  工程项目开发——自制GoogleTest测试框架</h3>
+<p><code>test.h</code></p>
+<pre><code class="language-c">#ifndef _TEST_H
+#define _TEST_H
+
+#include&lt;stdio.h&gt;
+#include&lt;linklist.h&gt;
+
+#define COLOR(a, b) &quot;\033[&quot; #b &quot;m&quot; a &quot;\033[0m&quot;
+#define COLOR_HL(a, b) &quot;\033[1;&quot; #b &quot;m&quot; a &quot;\033[0m&quot;
+
+#define GREEN(a) COLOR(a, 32)
+#define RED(a) COLOR(a, 31)
+#define GREEN_HL(a) COLOR_HL(a, 32) 
+#define RED_HL(a) COLOR_HL(a, 31)
+#define BLUE_HL(a) COLOR_HL(a, 34)
+#define YELLOW_HL(a) COLOR_HL(a, 33)
+
+//定义TEST宏
+//调用add_function()
+#define TEST(a, b) \
+void a##_##b();\
+__attribute__((constructor))\
+void add_##a##_##b() {\
+    add_function(a##_##b, #a &quot;.&quot; #b);\
+}\
+void a##_##b()
+
+// 泛型宏:根据传入的宏参数a的类型进行对应内容的替换
+#define Type(a) _Generic((a), \
+    int : &quot;%d&quot;,\
+    float : &quot;%f&quot;,\
+    long long : &quot;%lld&quot;\
+)
+
+#define P(a, color) {\
+    char frm[1000];\
+    sprintf(frm, color(&quot;%s&quot;), Type(a));\
+    printf(frm, a);\
+}
+
+#define EXPECT(a, b, cmp) {\
+    haizei_test_info.total ++;\
+    __typeof(a) _a = (a);\
+    __typeof(b) _b = (b);\
+    if (_a cmp _b) haizei_test_info.success++;\
+    else {\
+        printf(&quot;\n&quot;);\
+        printf(YELLOW_HL(&quot;\t%s:%d: failure\n&quot;), __FILE__, __LINE__);\
+        printf(YELLOW_HL(&quot;\t\texpect : &quot; #a &quot; &quot; #cmp &quot; &quot; #b &quot;\n\t\t&quot; &quot;actual : &quot;));\
+        P(a,YELLOW_HL);\
+        printf(&quot; vs &quot;);\
+        P(b,YELLOW_HL);\
+        printf(&quot;\n\n&quot;);\
+    }\
+    printf(GREEN_HL(&quot;[-----------] &quot;));\
+    printf(&quot;%s %s %s  %s\n&quot;, #a, #cmp, #a, _a cmp _b ? GREEN_HL(&quot;TRUE&quot;) : RED_HL(&quot;FALSE&quot;));\
+}
+
+#define EXPECT_EQ(a, b) EXPECT(a, b, ==)
+#define EXPECT_NE(a, b) EXPECT(a, b, !=)
+#define EXPECT_GT(a, b) EXPECT(a, b, &gt;)
+#define EXPECT_LT(a, b) EXPECT(a, b, &lt;)
+
+//定义TEST宏对应的测试用例函数的函数指针类型
+typedef void (*TestFuncT)();
+
+//存放TEST测试用例函数和函数名的结构体,typedef重命名类型
+typedef struct Function {
+    TestFuncT func;
+    const char* func_name;
+    struct LinkNode p;
+} Function;
+
+typedef struct FunctionInfo {
+    int total, success;
+} FunctionInfo;
+
+extern FunctionInfo haizei_test_info;
+
+//添加函数及函数名到结构体数组中，并计数
+void add_function(TestFuncT func, const char* func_name);
+
+
+//循环执行结构体数组中的测试用例函数
+int RUN_ALL_TESTS();
+
+#endif
+</code></pre>
+<p><code>test.c</code></p>
+<pre><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;test.h&gt;
+#include&lt;math.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;linklist.h&gt;
+
+Function head, *tail = &amp;head;
+FunctionInfo haizei_test_info;
+
+void add_function(TestFuncT func, const char* func_name) {
+    Function* temp = (Function *)calloc(1, sizeof(Function));
+    temp-&gt;func = func;
+    temp-&gt;func_name = func_name;
+    tail-&gt;p.next = &amp;(temp-&gt;p);
+    tail = temp;
+    return;
+}
+
+int RUN_ALL_TESTS() {
+    for (struct LinkNode* p = head.p.next; p; p = p-&gt;next) {
+        Function *func = Head(p, Function, p);
+        haizei_test_info.total = 0;
+        haizei_test_info.success = 0;
+        printf(GREEN_HL(&quot;[====RUN====] &quot;) RED_HL(&quot;%s\n&quot;), func-&gt;func_name);
+        func-&gt;func();
+        double rate = 100.0 * haizei_test_info.success / haizei_test_info.total;
+        printf(GREEN_HL(&quot;[  &quot;));
+        if (fabs (rate - 100.0) &lt; 1e-6) {
+            printf(BLUE_HL(&quot;%6.2lf%%&quot;), rate); 
+        } else {
+            printf(RED_HL(&quot;%6.2lf%%&quot;), rate); 
+        } 
+        printf(GREEN_HL(&quot;  ] &quot;) &quot;total : %d   success : %d\n&quot;, haizei_test_info.total, haizei_test_info.success);
+    }
+    return 0;
+}
+</code></pre>
+<p><code>linklist.h</code></p>
+<pre><code class="language-c">#ifndef _LINKLIST_H
+#define _LINKLIST_H
+
+#define offset(T, name) (long long)(&amp;((T*)(NULL))-&gt;name)
+#define Head(p, T, name) (T*)((char* )(p) - offset(T, name))
+
+struct LinkNode {
+   struct LinkNode* next;
+};
+
+#endif
+</code></pre>
+<p><code>main.h</code></p>
+<pre><code class="language-c">#include &lt;test.h&gt;
+
+int add(int a, int b) {
+    return a + b;
+}
+
+TEST(testfunc1, add) {
+    EXPECT_EQ(add(2, 3), 5)
+    EXPECT_NE(add(2, 1), 3)
+    EXPECT_EQ(add(2, 3), 7)
+    EXPECT_EQ(add(3, 3), 6)
+}
+
+TEST(testfunc2, add) {
+    EXPECT_GT(add(5, 2), 8)
+    EXPECT_EQ(add(2, -2), 5)
+    EXPECT_EQ(add(-2, 0), 2)
+    EXPECT_EQ(add(1, -1), 0)
+}
+TEST(testfunc3, add) {
+    EXPECT_GT(add(5, 2), 6)
+    EXPECT_LT(add(3, 5), 9)
+}
+
+int main(/*int argc, char *argv[]*/) {
+    //testing::InitGoogleTest(&amp;argc, argv);
+    return RUN_ALL_TESTS();
+}
+</code></pre>
+<p><code>makefile</code></p>
+<pre><code class="language-c">.PHONY: clean
+
+all: main.o test.o
+	gcc main.o test.o -lm -o haizeix
+main.o: main.c test.h
+	gcc -I./ -c main.c
+test.o: test.c test.h linklist.h
+	gcc -I./ -c test.c
+clean:
+	rm -rf main.o test.o haizeix
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Linux系统入门]]></title>
         <id>https://liuqianqian007.github.io/post/linux-xi-tong-ru-men/</id>
