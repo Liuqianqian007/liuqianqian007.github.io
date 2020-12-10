@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://liuqianqian007.github.io</id>
     <title>Gridea</title>
-    <updated>2020-12-10T12:38:15.308Z</updated>
+    <updated>2020-12-10T12:50:23.958Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://liuqianqian007.github.io"/>
     <link rel="self" href="https://liuqianqian007.github.io/atom.xml"/>
@@ -10,6 +10,28 @@
     <logo>https://liuqianqian007.github.io/images/avatar.png</logo>
     <icon>https://liuqianqian007.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[Linux系统入门]]></title>
+        <id>https://liuqianqian007.github.io/post/linux-xi-tong-ru-men/</id>
+        <link href="https://liuqianqian007.github.io/post/linux-xi-tong-ru-men/">
+        </link>
+        <updated>2020-12-10T12:45:38.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://liuqianqian007.github.io/post-images/1607604413664.jpg" alt="" loading="lazy"></figure>
+<h3 id="一-概述">一、概述</h3>
+<h4 id="1-计算机系统与程序语言发展时间线">1. 计算机系统与程序语言发展时间线</h4>
+<figure data-type="image" tabindex="2"><img src="file://C:/Users/41163/AppData/Roaming/Typora/typora-user-images/image-20201119134812273.png" alt="image-20201119134812273" loading="lazy"></figure>
+<h4 id="2linux系统的发行版本">2.Linux系统的发行版本</h4>
+<figure data-type="image" tabindex="3"><img src="C:/Users/41163/AppData/Roaming/Typora/typora-user-images/image-20201119141614674.png" alt="image-20201119141614674" loading="lazy"></figure>
+<ul>
+<li>
+<p>Mac基于Unix</p>
+</li>
+<li>
+<p>redhat是付费的企业级操作系统，Cent OS是其免费发行版本</p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://liuqianqian007.github.io/post/hello-gridea/</id>
